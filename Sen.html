@@ -148,7 +148,7 @@
     </div>
 
     <script>
-        (function() { emailjs.init("YOUR_PUBLIC_KEY"); })();
+        (function() { emailjs.init("9TO7hHMapqy4U9kNz"); })();
 
         function autoGrow(element) {
             element.style.height = "5px";
@@ -163,7 +163,7 @@
             btn.classList.add('loading');
             btn.disabled = true;
 
-            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+            emailjs.sendForm('service_j2uu8yq', 'template_z1r5iah', this)
                 .then(() => {
                     btn.classList.remove('loading');
                     btn.style.background = "#2ecc71";
