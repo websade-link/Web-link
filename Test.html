@@ -2,45 +2,53 @@
 <html lang="so">
 <head>
     <meta charset="UTF-8">
-    <title>EmailJS Test</title>
+    <title>EmailJS Test Cusub</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            // Halkan geli Public Key-gaaga
-            emailjs.init("wm5gF1fpGmTpyCjqP");
+            // Public Key-ga cusub
+            emailjs.init("9TO7hHMapqy4U9kNz");
         })();
     </script>
 </head>
 <body>
 
-    <h2>Tijaabi Email-kaaga</h2>
-    <button onclick="sendTestEmail()">Dir Email Tijaabo ah</button>
-
-    <p id="status"></p>
+    <div style="text-align: center; margin-top: 50px; font-family: sans-serif;">
+        <h2>EmailJS Tijaabo (Account Cusub)</h2>
+        <button id="btn" onclick="sendTestEmail()" style="padding: 10px 20px; cursor: pointer;">
+            Dir Email-ka
+        </button>
+        <p id="status"></p>
+    </div>
 
     <script>
         function sendTestEmail() {
             const statusText = document.getElementById("status");
+            const btn = document.getElementById("btn");
+
             statusText.innerText = "Waa la dirayaa...";
+            btn.disabled = true;
 
             // Xogta loo dirayo Template-kaaga
             const params = {
-                from_name: "Maxamed Test",
-                message: "Hambalyo! EmailJS-kaagu si sax ah ayuu u shaqaynayaa.",
-                reply_to: "maxamedaxamed153@gmail.com"
+                from_name: "Maxamed Admin",
+                message: "Kani waa tijaabada labaad ee EmailJS, si fiican ayuu u shaqaynayaa!",
+                reply_to: "m60051616@gmail.com"
             };
 
-            emailjs.send("service_3c4c8eg", "template_pwp7ntq", params)
+            emailjs.send("service_j2uu8yq", "template_z1r5iah", params)
                 .then(function(response) {
-                    statusText.innerText = "Email-ku si guul leh ayuu u baxay! (Status: " + response.status + ")";
+                    statusText.innerText = "Email-ku si guul leh ayuu u baxay! (Status: OK)";
                     statusText.style.color = "green";
+                    btn.disabled = false;
                 }, function(error) {
-                    statusText.innerText = "Wuu fashilmay: " + JSON.stringify(error);
+                    statusText.innerText = "Khalad ayaa dhacay: " + JSON.stringify(error);
                     statusText.style.color = "red";
+                    btn.disabled = false;
+                    console.log("FAILED...", error);
                 });
         }
     </script>
 
 </body>
 </html>
-
