@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Surprise ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --gradient-bg: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--gradient-bg);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Glassmorphism Effect */
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            width: 85%;
+            max-width: 420px;
+            z-index: 10;
+            transition: transform 0.5s ease;
+        }
+
+        h1 { 
+            color: #fff; 
+            font-size: 2.5rem; 
+            margin-bottom: 20px; 
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .gif-container img {
+            width: 200px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 18px;
+            padding: 15px 40px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        #yesBtn { 
+            background-color: #ff4757; 
+            color: white; 
+        }
+
+        #noBtn { 
+            background-color: #ffffff; 
+            color: #ff4757; 
+        }
+
+        /* Loading Spinner */
+        #loadingScreen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(255,255,255,0.3);
+            border-top: 6px solid white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Second Page */
+        #secondPage { display: none; }
+
+        .love-text {
+            color: #fff;
+            font-size: 2.2rem;
+            font-family: 'Dancing Script', cursive;
+            margin-top: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Animated Hearts */
+        .heart {
+            position: fixed;
+            bottom: -50px;
+            pointer-events: none;
+            animation: floatUp linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+        #cuteBtn {
+    margin-top: 20px;
+    background: linear-gradient(45deg, #ff6a88, #ff99ac);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+#cuteBtn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+    </style>
+</head>
+<body>
+
+    <div id="firstPage" class="container">
+        <h1>هل تحبني❤️؟ 
+ ❤️</h1>
+        <div class="gif-container">
+            <img id="mainGif" src="https://i.ibb.co/ccWHqWSt/953c481e3ab84ce34dc669ecb3b4b398.gif" alt="Cute GIF">
+        </div>
+        <div class="buttons">
+            <button id="yesBtn">نعم</button>
+            <button id="noBtn">لا</button>
+        </div>
+    </div>
+
+    <div id="loadingScreen" class="container">
+        <div class="spinner"></div>
+        <p style="color: white; margin-top: 15px;">انتظر دقيقة.</p>
+    </div>
+
+    <div id="secondPage" class="container">
+        <h1> 🎉</h1>
+        <div class="gif-container">
+            <img src="https://i.ibb.co/YTZm2NCx/233f85ad6010a54c251c098509f8733a.gif" alt="Happy GIF">
+        </div>
+        <p class="love-text">Nakupenda🫶</p>
+        <button id="cuteBtn">💌 Fariin</button>
+    </div>
+
+    <script>
+        const firstPage = document.getElementById('firstPage');
+        const loadingScreen = document.getElementById('loadingScreen');
+        const secondPage = document.getElementById('secondPage');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+
+        let yesSize = 18;
+
+        // Markii "Maya" la dul istaago ama la taabto
+        const growYes = () => {
+            yesSize += 25; // Weenayn tartiib ah oo ka qurux badan
+            yesBtn.style.fontSize = yesSize + "px";
+            yesBtn.style.padding = (yesSize / 1.5) + "px " + (yesSize * 1.5) + "px";
+            
+            // "Maya" wuxuu isku dayayaa inuu baxsado
+            const x = Math.random() * 50 - 25;
+            const y = Math.random() * 50 - 25;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        };
+
+        noBtn.addEventListener('mouseover', growYes);
+        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); growYes(); });
+
+        // Markii "Haa" la riixo
+        yesBtn.addEventListener('click', () => {
+            firstPage.style.display = 'none';
+            loadingScreen.style.display = 'flex';
+
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                secondPage.style.display = 'block';
+                // Markii bogga 2aad soo baxo, kordhi xawaaraha qalbiyada
+                setInterval(createHeart, 150);
+            }, 2000);
+        });
+        
+        // Qalbiyada Sabaynaya
+        function createHeart(){
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+
+            const emojis = ["❤️","💖","💕","💗","🌸","✨","🎁","💘"];
+            heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s"; // Way ka dheereeyaan hadda
+            heart.style.fontSize = Math.random() * 20 + 20 + "px";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        setInterval(createHeart, 400);
+        cuteBtn.addEventListener('click', () => {
+    window.location.href = "page2.html";
+});
+    </script>
+</body>
+</htm
