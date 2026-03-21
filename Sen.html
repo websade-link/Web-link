@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fariin Jacayl ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --soft-pink: #ff85a1;
+            --gradient-bg: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            background: var(--gradient-bg);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 30px;
+            border-radius: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 85%;
+            max-width: 380px;
+            z-index: 10;
+        }
+
+        h2 { 
+            color: #fff; 
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem; 
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .gif-container img {
+            width: 100px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+        }
+
+        /* Qaybta wax lagu qoro - Hadda waa Pink! */
+        .message-box {
+            background: rgba(255, 77, 109, 0.15); /* Pink khafiif ah */
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 25px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.1);
+            transition: 0.3s;
+        }
+
+        .message-box:focus-within {
+            background: rgba(255, 77, 109, 0.25);
+            border-color: #fff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+
+        textarea {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            color: #fff; /* Qoraalku waa cadaan */
+            outline: none;
+            resize: none;
+            overflow: hidden;
+            min-height: 24px;
+            display: block;
+        }
+
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Badhanka */
+        .send-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            position: relative;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.3);
+        }
+
+        .send-btn:active { transform: scale(0.95); }
+
+        .spinner {
+            display: none;
+            width: 24px; height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            position: absolute; left: 46%; top: 25%;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .loading .btn-text { visibility: hidden; }
+        .loading .spinner { display: block; }
+
+        .heart {
+            position: fixed; bottom: -50px; pointer-events: none;
+            animation: floatUp linear forwards; z-index: 1;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Fariin Jacayl 💌</h2>
+        <div class="gif-container">
+            <img src="https://i.ibb.co/N2drQW2c/9a4d19f4ba9c71c921bca8c9f09e01a5-avf.avif" alt="Heart">
+        </div>
+        
+        <form id="contact-form">
+            <div class="message-box">
+                <textarea id="message" name="message" rows="1" placeholder="Halkan ku qor fariintaada..." required oninput="autoGrow(this)"></textarea>
+            </div>
+            <button type="submit" class="send-btn" id="submitBtn">
+                <span class="btn-text">Diro Fariinta ✨</span>
+                <div class="spinner" id="loader"></div>
+            </button>
+        </form>
+        <p id="statusMsg" style="margin-top: 15px; font-size: 14px; font-weight: 600; color: white;"></p>
+    </div>
+
+    <script>
+        (function() { emailjs.init("YOUR_PUBLIC_KEY"); })();
+
+        function autoGrow(element) {
+            element.style.height = "5px";
+            element.style.height = (element.scrollHeight) + "px";
+        }
+
+        const btn = document.getElementById('submitBtn');
+        const statusMsg = document.getElementById('statusMsg');
+
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+                .then(() => {
+                    btn.classList.remove('loading');
+                    btn.style.background = "#2ecc71";
+                    document.querySelector('.btn-text').innerText = 'Waa la diray! ✅';
+                    statusMsg.innerText = "Fariintaadu si guul leh ayay u gaartay!";
+                    document.getElementById("message").value = "";
+                }, (err) => {
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
+                    statusMsg.innerText = "Cillad ayaa dhacday, isku day mar kale.";
+                });
+        });
+
+        function createHeart(){
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            const emojis = ["❤️","💖","🌸","✨"];
+            heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+            heart.style.fontSize = Math.random() * 20 + 15 + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
+
