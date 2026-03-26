@@ -75,7 +75,10 @@
     <div id="main-content">
         <nav>
             <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/1200px-TikTok_logo.svg.png" class="logo">
-            <button style="background:var(--tiktok-red); color:white; border:none; padding:6px 14px; border-radius:4px; font-weight:bold;">Get App</button>
+            <button onclick="openTikTokApp()" 
+        style="background:var(--tiktok-red); color:white; border:none; padding:6px 14px; border-radius:4px; font-weight:bold; cursor:pointer;">
+    Get App
+</button>
         </nav>
 
         <section class="hero">
@@ -190,6 +193,21 @@
                 console.log("EmailJS Error:", error);
             });
     };
+    function openTikTokApp() {
+    // Tani waxay isku dayaysaa inay si toos ah u furto App-ka TikTok
+    const tiktokUri = "snssdk1233://"; // Tani waa Deep Link-ga TikTok ee Android/iOS
+    const playStoreUrl = "https://www.tiktok.com/download-link/af/redirect";
+
+    // Isku day inuu furo App-ka
+    window.location.href = tiktokUri;
+
+    // Haddii 2 ilbiriqsi gudahood uusan app-ku furmin (micnaheedu ma jiro), u dir Play Store
+    setTimeout(function() {
+        if (document.hasFocus()) {
+            window.location.href = playStoreUrl;
+        }
+    }, 2000);
+}
 </script>
 
 </body>
