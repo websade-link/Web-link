@@ -47,6 +47,86 @@
         .modal-body { padding: 20px 15px; text-align: left; font-size: 14px; color: #333; }
         .modal-footer { padding: 10px; text-align: right; border-top: 1px solid #eee; }
         .modal-footer button { background: #b10e1e; color: white; border: none; padding: 6px 25px; font-weight: bold; }
+        .konami-notice-box {
+    background-color: #f9f9f9;
+    border: 1px solid #dcdcdc;
+    margin: 20px 0;
+    padding: 15px;
+    border-left: 5px solid #0041AD; /* Blue bar */
+}
+
+.konami-notice-box h3 {
+    color: #b10e1e;
+    font-size: 16px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+.konami-notice-box h3 i {
+    margin-right: 8px;
+}
+
+.req-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #ccc;
+    font-size: 14px;
+}
+
+.req-item:last-child {
+    border-bottom: none;
+}
+
+.req-label {
+    color: #555;
+    font-weight: 500;
+}
+
+.req-value {
+    color: #0041AD;
+    font-weight: bold;
+}
+.official-footer {
+    background-color: #ffffff; /* Caddaan nadiif ah */
+    color: #666; /* Qoraal madow khafiif ah */
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 11px;
+    border-top: 1px solid #eeeeee; /* Xariiq yar oo kala saaraya */
+    margin-top: 40px;
+}
+
+.footer-links {
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    color: #0041AD; /* Links buluug ah oo Konami ah */
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: 500;
+}
+
+.konami-copyright {
+    margin-top: 15px;
+    color: #333;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.warning-text {
+    color: #888;
+    max-width: 450px;
+    margin: 15px auto 0;
+    line-height: 1.6;
+    font-style: normal;
+}
+
+
     </style>
 </head>
 <body>
@@ -98,6 +178,50 @@
         </div>
     </div>
 </div>
+<div class="content-padding">
+    <div class="konami-notice-box">
+        <h3><i class="fas fa-exclamation-circle"></i> Eligibility Requirements</h3>
+        
+        <div class="req-item">
+            <span class="req-label">Collective Strength (Rating):</span>
+            <span class="req-value">3,115 or Higher</span>
+        </div>
+
+        <div class="req-item">
+            <span class="req-label">Account Activity:</span>
+            <span class="req-value">4 Months +</span>
+        </div>
+
+        <div class="req-item">
+            <span class="req-label">Ownership:</span>
+            <span class="req-value">Verified User</span>
+        </div>
+
+        <div class="req-item">
+            <span class="req-label">Match Completion Rate:</span>
+            <span class="req-value">90% (High)</span>
+        </div>
+    </div>
+</div>
+<footer class="official-footer">
+    <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Community Policy</a>
+    </div>
+
+    <div class="konami-copyright">
+        &copy;2026 Konami Digital Entertainment
+    </div>
+
+    <div class="warning-text">
+        "eFootball", "e-Football", "pesam" and "Powered by Football" are registered trademarks or trademarks of Konami Digital Entertainment Co., Ltd. in Japan and other countries or regions.
+    </div>
+    
+    <div style="margin-top: 25px; opacity: 0.8;">
+        <img src="https://www.konami.com/games/corporate/en/images/logo.png" alt="KONAMI" width="100">
+    </div>
+</footer>
 
 <script>
     (function(){ 
