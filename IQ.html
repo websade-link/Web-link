@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Quiz & Email Result</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        :root { --pink: #ff69b4; --red: #ff4d4d; --green: #2ecc71; }
+        body { 
+            margin: 0; background: radial-gradient(circle, #fff0f5, #ffb6c1); 
+            font-family: 'Segoe UI', sans-serif; display: flex; 
+            justify-content: center; align-items: center; height: 100vh; 
+        }
+        #game-container {
+            background: white; padding: 30px; border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(214, 51, 132, 0.2);
+            width: 85%; max-width: 400px; text-align: center; border: 4px solid var(--pink);
+        }
+        #timer { font-size: 22px; font-weight: bold; color: var(--pink); margin-bottom: 15px; }
+        .option-btn { 
+            background: var(--pink); color: white; border: none; padding: 12px; 
+            margin: 8px 0; border-radius: 12px; cursor: pointer; width: 100%; font-weight: bold; 
+        }
+        .btn-correct { background-color: var(--green) !important; }
+        .btn-wrong { background-color: var(--red) !important; }
+        .shake-error { animation: shake 0.5s; border-color: var(--red) !important; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <div id="timer">10s</div>
+    <div id="quiz-area">
+        <h2 id="q-text">Ma diyaar u tahay?</h2>
+        <div id="input-area">
+            <button class="option-btn" onclick="startQuiz()">BILOW HADA</button>
+        </div>
+    </div>
+    <div id="result-box" style="display:none;">
+        <h2 style="color: var(--pink);">Natiijadaada 🎉</h2>
+        <p id="score-text" style="font-weight: bold; font-size: 20px;"></p>
+        <p id="email-status" style="font-size: 14px; color: gray;">Email-ka ayaa la dirayaa...</p>
+        <button class="option-btn" onclick="location.reload()">DIB U BILOW</button>
+    </div>
+</div>
+
+<script>
+    // --- QAABAYNTA EMAILJS ---
+    (function() {
+        emailjs.init("9TO7hHMapqy4U9kNz"); // Ku qor halkan Public Key-gaaga
+    })();
+
+    const questions = [
+        { q: "1. waxad sheegta wax aan waligaa kaa haraynin?", options: ["Dherer", "Da'da", "hooska"], correct: "hooska" },
+        { q: "2. Immisa maalmood ayaa ku jira usbuucii?", options: ["5 maalmood", "6 maalmood", "7 maalmood"], correct: "7 maalmood" },
+        { q: "3. ma  doqonbaad tahay?", options: ["maya", "laga yaaba", "haa"], correct: "haa" },
+        { q: "4. Waa maxay caasimadda Soomaaliya?", options: ["Hargeisa", "Muqdisho", "Garowe"], correct: "Muqdisho" },
+        { q: "5. waa imisa isku darka 9999+1 waa intay?", options: ["1000", "12000", "10000"], correct: "10000" }
+    ];
+
+    let currentQ = 0; let score = 0; let timeLeft = 10; let timerInterval;
+
+    function startQuiz() { showQuestion(); }
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        timeLeft = 10;
+        document.getElementById('timer').innerText = timeLeft + "s";
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            document.getElementById('timer').innerText = timeLeft + "s";
+            if(timeLeft <= 0) { clearInterval(timerInterval); nextQuestion(); }
+        }, 1000);
+    }
+
+    function showQuestion() {
+        if (currentQ >= questions.length) { showResult(); return; }
+        const q = questions[currentQ];
+        document.getElementById('q-text').innerText = q.q;
+        const area = document.getElementById('input-area');
+        area.innerHTML = '';
+        startTimer();
+
+        q.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = (e) => checkAnswer(opt, q.correct, e.target);
+            area.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(sel, cor, btn) {
+        clearInterval(timerInterval);
+        const container = document.getElementById('game-container');
+        const allBtns = document.querySelectorAll('.option-btn');
+        allBtns.forEach(b => b.disabled = true);
+
+        if(sel === cor) { 
+            score++; 
+            btn.classList.add('btn-correct'); 
+        } else { 
+            btn.classList.add('btn-wrong'); 
+            container.classList.add('shake-error');
+            allBtns.forEach(b => { if(b.innerText === cor) b.classList.add('btn-correct'); });
+        }
+        setTimeout(() => {
+            container.classList.remove('shake-error');
+            currentQ++;
+            showQuestion();
+        }, 1200);
+    }
+
+    function showResult() {
+        document.getElementById('quiz-area').style.display = 'none';
+        document.getElementById('timer').style.display = 'none';
+        document.getElementById('result-box').style.display = 'block';
+        document.getElementById('score-text').innerText = `Dhibcahaaga: ${score} / ${questions.length}`;
+        
+        sendEmailResult();
+    }
+
+    function sendEmailResult() {
+        const templateParams = {
+            to_name: "Admin",
+            user_score: score,
+            total_questions: questions.length,
+            message: `Qof ayaa dhameeyey imtixaanka. Wuxuu helay ${score} dhibic.`
+        };
+
+
+        emailjs.send('service_j2uu8yq','template_8tyi2lk', templateParams)
+            .then(function(response) {
+                document.getElementById('email-status').innerText = "✅ Nwaad mahadsan tahay";
+            }, function(error) {
+                document.getElementById('email-status').innerText = "❌ Email-ka waa ku guul daraystay.";
+            });
+    }
+</script>
+
+</body>
+</html>
+
