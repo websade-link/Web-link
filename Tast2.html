@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <title>EmailJS Test</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // Halkan waxaa galaya Public Key-gaaga
+            emailjs.init("9TO7hHMapqy4U9kNz");
+        })();
+    </script>
+</head>
+<body>
+
+    <h2>Tijaabinta EmailJS</h2>
+    <button onclick="sendTestEmail()">Dir Email-ka Tijaabada ah</button>
+
+    <script type="text/javascript">
+        function sendTestEmail() {
+            // Xogta aad rabto inaad u dirto Template-ka
+            var templateParams = {
+                to_name: "Macmiil",
+                from_name: "Nidaamka Tijaabada",
+                message: "Hambalyo! Code-kaagu si fiican ayuu u shaqeeyey."
+            };
+
+            emailjs.send('service_j2uu8yq', 'template_8tyi2lk', templateParams)
+                .then(function(response) {
+                   console.log('GUUL!', response.status, response.text);
+                   alert("Email-kii waa la diray!");
+                }, function(error) {
+                   console.log('GABAL-DHAC...', error);
+                   alert("Wuu fashilmay: " + JSON.stringify(error));
+                });
+        }
+    </script>
+
+</body>
+</html>
+
