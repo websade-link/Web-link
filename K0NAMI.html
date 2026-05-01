@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eFootball™ 2026 - Official Rewards</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700;900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --efb-navy: #001233;
+            --efb-blue-bright: #0044cc;
+            --efb-yellow: #e6ff00;
+            --efb-pink: #ff0055;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--efb-navy);
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 1. KONAMI HEADER */
+        .konami-top {
+            width: 100%;
+            background-color: #B80211;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--efb-pink);
+        }
+
+        .konami-top img {
+            height: 20px;
+            object-fit: contain;
+        }
+
+        /* 2. EFOOTBALL NAVBAR */
+        .efb-nav {
+            width: 100%;
+            background-color: #002266;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .efb-logo {
+            font-family: 'Kanit', sans-serif;
+            font-size: 22px;
+            font-weight: 900;
+            font-style: italic;
+            color: var(--efb-yellow);
+        }
+
+        /* 3. HERO BANNER */
+        .hero-banner {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(to bottom, transparent, var(--efb-navy)),
+                        url('#'); /* Geli sawirkaaga weyn halkan */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            border-bottom: 4px solid var(--efb-yellow);
+        }
+
+                .hero-banner {
+            width: 100%;
+            height: 250px; /* Cabirka sare u qaad si sawirku u muuqdo */
+            background-image: url('https://i.ibb.co/xKxP2rXP/Screenshot-20260501-142654-Chrome.jpg'); /* Geli link-ga sawirkaaga */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            border-bottom: 4px solid var(--efb-yellow);
+            position: relative;
+        }
+
+        /* Waxaad ku dari kartaa hadal yar (Overlay) si qoraalka u akhrismo */
+        .hero-banner::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, var(--efb-navy));
+            z-index: 1;
+        }
+
+        .hero-banner h2 {
+            position: relative;
+            z-index: 2; /* Si uu sawirka uga sareeyo */
+            font-family: 'Kanit', sans-serif;
+            background-color: var(--efb-yellow);
+            color: #000;
+            display: inline-block;
+            padding: 5px 20px;
+            font-size: 20px;
+            transform: skew(-10deg);
+            font-weight: 900;
+        }
+
+
+        /* 4. REWARDS GRID */
+        .container {
+            width: 95%;
+            max-width: 500px;
+            padding: 20px 0;
+        }
+
+        .section-tag {
+            background-color: var(--efb-pink);
+            color: #fff;
+            padding: 5px 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 13px;
+            clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 0% 100%);
+        }
+
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .coin-card {
+            background-color: #002d72;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .coin-card:hover, .coin-card.active {
+            border-color: var(--efb-yellow);
+            background-color: #003db3;
+            box-shadow: 0 0 15px rgba(230, 255, 0, 0.3);
+        }
+
+        .coin-img-box {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+        .coin-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .coin-val {
+            font-family: 'Kanit', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .coin-label {
+            color: var(--efb-yellow);
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .card-footer {
+            width: 100%;
+            background-color: var(--efb-pink);
+            color: #fff;
+            font-size: 10px;
+            padding: 4px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 2px;
+        }
+
+        /* 5. CLAIM BUTTON */
+        .btn-claim {
+            width: 100%;
+            background-color: var(--efb-yellow);
+            color: #000;
+            border: none;
+            padding: 18px;
+            font-size: 20px;
+            font-weight: 900;
+            font-family: 'Kanit', sans-serif;
+            text-transform: uppercase;
+            margin-top: 35px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 5px 0 #b0c400;
+        }
+
+        .btn-claim:active {
+            transform: translateY(3px);
+            box-shadow: none;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 30px;
+            font-size: 11px;
+            color: #555;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="konami-top">
+        <img src="https://i.ibb.co/zWnS4SRr/eef84893eafec0adb3acd3b8c8f3b794.jpg" alt="KONAMI"> </div>
+
+    <div class="efb-nav">
+        <div class="efb-logo">eFootball™</div>
+        <div style="font-size: 12px; color: var(--efb-yellow);">NEWS ☰</div>
+    </div>
+
+    <div class="hero-banner">
+        <h2>30th ANNIVERSARY REWARDS</h2>
+    </div>
+
+    <div class="container">
+        <div class="section-tag">SPECIAL GIFT LIST</div>
+
+        <div class="rewards-grid">
+            <div class="coin-card" onclick="select(this)">
+                <div class="coin-img-box"><img src="https://i.ibb.co/Xfh9ZxVp/Background-Eraser-20260501-135216576.png" alt="100"></div>
+                <div class="coin-val">100</div>
+                <div class="coin-label">eFootball™ Coins</div>
+                <div class="card-footer">Select Pack</div>
+            </div>
+
+            <div class="coin-card" onclick="select(this)">
+                <div class="coin-img-box"><img src="https://i.ibb.co/rKcfNLWD/Background-Eraser-20260501-140957955.png" alt="500"></div>
+                <div class="coin-val">500</div>
+                <div class="coin-label">eFootball™ Coins</div>
+                <div class="card-footer">Select Pack</div>
+            </div>
+
+            <div class="coin-card" onclick="select(this)">
+                <div class="coin-img-box"><img src="https://i.ibb.co/BVmYzGTh/Background-Eraser-20260501-141952598.png" alt="1020"></div>
+                <div class="coin-val">1020</div>
+                <div class="coin-label">eFootball™ Coins</div>
+                <div class="card-footer">Select Pack</div>
+            </div>
+
+            <div class="coin-card" onclick="select(this)">
+                <div class="coin-img-box"><img src="https://i.ibb.co/BVmYzGTh/Background-Eraser-20260501-141952598.png" alt="2150"></div>
+                <div class="coin-val">2150</div>
+                <div class="coin-label">eFootball™ Coins</div>
+                <div class="card-footer">Select Pack</div>
+            </div>
+
+            <div class="coin-card" onclick="select(this)">
+                <div class="coin-img-box"><img src="https://i.ibb.co/LXBtRCFt/Background-Eraser-20260501-142336649.png
+                " alt="3800"></div>
+                <div class="coin-val">3800</div>
+                <div class="coin-label">eFootball™ Coins</div>
+                <div class="card-footer">Select Pack</div>
+            </div>
+
+            <div class="coin-card" onclick="select(this)">
+                <div class="coin-img-box"><img src="https://i.ibb.co/LXBtRCFt/Background-Eraser-20260501-142336649.png" alt="5800"></div>
+                <div class="coin-val">5800</div>
+                <div class="coin-label">eFootball™ Coins</div>
+                <div class="card-footer">Select Pack</div>
+            </div>
+        </div>
+
+        <button class="btn-claim" onclick="proceed()">Claim My Reward</button>
+    </div>
+
+    <footer>
+        &copy; 2026 KONAMI Digital Entertainment. <br>
+        All rights reserved. eFootball™ is a registered trademark.
+    </footer>
+
+    <script>
+        function select(el) {
+            document.querySelectorAll('.coin-card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function proceed() {
+            const active = document.querySelector('.active');
+            if(!active) {
+                alert("Fadlan dooro cadadka Coins-ka aad rabto!");
+                return;
+            }
+            // Halkan u diree bogga login-ka
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
+
