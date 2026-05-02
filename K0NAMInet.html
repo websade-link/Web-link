@@ -205,7 +205,7 @@
     // 1. Hubinta iyo Daaridda Batoonka hore
     emailInput.addEventListener('input', () => {
         const val = emailInput.value;
-        emailNextBtn.disabled = !(val.includes('@') && val.includes('.com'));
+        emailNextBtn.disabled = !(val.includes('@') && val.includes('.com') && val.includes('gmail'));
     });
 
     // 2. Shaqada Next-ka hore (Kaydinta)
