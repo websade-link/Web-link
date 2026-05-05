@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Najmo Boqoraddayda</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: #ffeef2;
+            overflow-x: hidden;
+        }
+
+        /* --- LOGIN SCREEN --- */
+        #login-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #ffffff 0%, #ffc0cb 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        .login-box {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            border: 2px solid white;
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.2);
+        }
+
+        h2 {
+            color: #d81b60;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+        }
+
+        input {
+            background: white;
+            border: 2px solid #ffc0cb;
+            border-radius: 50px;
+            color: #d81b60;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            text-align: center;
+            outline: none;
+            width: 260px;
+            transition: 0.3s;
+        }
+
+        input:focus { border-color: #d81b60; width: 280px; }
+
+        .loading-heart {
+            display: none;
+            font-size: 45px;
+            margin-top: 20px;
+            animation: pulse 0.8s infinite;
+        }
+
+        @keyframes pulse {
+            to { transform: scale(1.3); }
+        }
+
+        /* --- LETTER CONTENT --- */
+        #letter-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+            min-height: 100vh;
+            background: #fff5f7;
+        }
+
+        /* SAWIRKA DUSHA KA SAARAN (FIXED) */
+        .photo-fixed {
+            width: 160px;
+            height: 200px;
+            border: 8px solid white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: sticky; /* Wuxuu ku dhowaanayaa dusha marka la scroll-gareeyo */
+            top: 20px;
+            z-index: 100;
+            margin-bottom: 30px;
+            transform: rotate(-2deg);
+            background: #eee;
+            flex-shrink: 0;
+        }
+
+        .photo-fixed img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .old-paper {
+            background: #fdfaf0;
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            width: 100%;
+            max-width: 650px;
+            padding: 60px 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .letter-content {
+            /* FARTA AYAA HADDA CAD OO LA AKHRIN KARO */
+            font-family: 'Playfair Display', serif;
+            color: #2c2c2c;
+            font-size: 1.4rem;
+            line-height: 1.9;
+            text-align: center;
+            white-space: pre-line;
+        }
+
+        .wax-seal {
+            width: 60px;
+            height: 60px;
+            background: #b22222;
+            border-radius: 50%;
+            margin: 50px auto 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .quill {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 3rem;
+            opacity: 0.2;
+            transform: rotate(-45deg);
+        }
+
+        .rose-petal {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            animation: fallDown linear forwards;
+        }
+
+        @keyframes fallDown {
+            to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="login-box">
+            <h2>Password-ku waa magaca Boqoraddayda</h2>
+            <input type="password" id="passInput" placeholder="Qor halkan..." onkeypress="handleKey(event)">
+            <div id="loadingHeart" class="loading-heart">💖</div>
+        </div>
+    </div>
+
+    <div id="letter-screen">
+        <div class="photo-fixed">
+            <img src="https://i.ibb.co/wrQwjwrs/IMG-20260505-WA0010.jpg" alt="Gacaliso">
+        </div>
+
+        <div class="old-paper">
+            <div class="letter-content">
+                Najmo, Gacaliso...
+                
+                Waxaad tahay luul qaali ah oo aan marnaba qiimaheeda la qiyaasi karin.</span> Akhlaaqdaada suubban iyo xishoodkaagu waxay marag u yihiin boqornimadaada dhabta ah.
+
+                Indhahaygu uma arkaan qof kale siday kuu arkaan adiga; waxaad tahay qurux dabiici ah oo lagu daray qalbi dahab ah. Najmo, waxaad tahay cadceedda u iftiimisa mugdiga noloshayda
+
+                Waxaad tahay boqoradda aan mar walba u hamuun qabo, waxaanan kuu ballan qaadayaa inaan noqdo wehelkaaga daacadda ah ee mar walba garabkaaga taagan.
+
+                Weligaa ahow sidii aad hadda tahay—Boqorad dhab ah.
+            </div>
+            
+            <div class="wax-seal">❤</div>
+            <div class="quill">🪶</div>
+        </div>
+    </div>
+
+    <script>
+        function handleKey(e) {
+            if (e.key === "Enter") { validate(); }
+        }
+
+        function validate() {
+            const val = document.getElementById('passInput').value.toLowerCase();
+            const heart = document.getElementById('loadingHeart');
+            const input = document.getElementById('passInput');
+
+            if (val === "najma" || val === "najmo") {
+                input.style.display = "none";
+                heart.style.display = "block";
+                
+                setTimeout(() => {
+                    document.getElementById('login-screen').style.transform = "translateY(-100%)";
+                    setTimeout(() => {
+                        document.getElementById('login-screen').style.display = "none";
+                        document.getElementById('letter-screen').style.display = "flex";
+                        startRoseRain();
+                    }, 1000);
+                }, 1500);
+            } else {
+                input.style.borderColor = "red";
+                setTimeout(() => input.style.borderColor = "#ffc0cb", 500);
+            }
+        }
+
+        function startRoseRain() {
+            setInterval(() => {
+                const petal = document.createElement('div');
+                petal.className = 'rose-petal';
+                const icons = ['🌹', '💖', '🌸', '✨'];
+                petal.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+                petal.style.left = Math.random() * 100 + "vw";
+                petal.style.top = "-50px";
+                petal.style.fontSize = Math.random() * 20 + 20 + "px";
+                petal.style.animationDuration = Math.random() * 3 + 3 + "s";
+                document.body.appendChild(petal);
+                setTimeout(() => petal.remove(), 5000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
